@@ -23,17 +23,21 @@ export default function Home() {
         <div className="w-dvw sm:w-lg ">
             <Card>
                 <CardHeader>
-                    <CardTitle className="sm: text-2xl flex justify-center">Iniciar Sesión</CardTitle>
+                    <CardTitle className="sm: text-2xl flex justify-center">Crear Cuenta</CardTitle>
                     <CardDescription></CardDescription>
                 </CardHeader>
                 <CardContent>
                     <InputDemo type="email" placeholder="Correo Electrónico" />
                     <InputDemo type="password" placeholder="Contraseña" />
-                    <Button type="submit" className="w-full md:h-10">Iniciar Sesión</Button>
+                    <div>
+                        <p><b>Confirma tu Contraseña:</b></p>
+                        <Input className="my-4 md:h-10 md:text-base" type="password" placeholder="Contraseña" />
+                    </div>
+                    <Button type="submit" className="w-full md:h-10">Crear Cuenta</Button>
                 </CardContent>
-                <CardFooter className="flex justify-center">
-                    <a href="" className="underline text-blue-600 hover:text-blue-800 hover:decoration-blue-800 visited:text-purple-600 visited:decoration-purple-600">
-                        Olvidaste tu Contraseña?
+                <CardFooter className="flex flex-col justify-center">
+                    <a href="/auth/login" className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800">
+                        Ya Tienes una Cuenta?
                     </a>
                 </CardFooter>
             </Card>

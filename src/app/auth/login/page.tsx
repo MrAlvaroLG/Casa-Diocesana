@@ -32,8 +32,8 @@ export default function Home() {
                     <Button type="submit" className="w-full md:h-10">Iniciar Sesión</Button>
                 </CardContent>
                 <CardFooter className="flex flex-col justify-center">
-                    <a href="" className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800 ">
-                        Ya tienes una cuenta?
+                    <a href="/auth/signup" className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800 ">
+                        No tienes una cuenta?
                     </a>
                     <a href="" className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800 ">
                         Olvidaste tu Contraseña?
