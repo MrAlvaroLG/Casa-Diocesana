@@ -12,15 +12,15 @@ import { Button } from "@/components/ui/button";
 export function InputDemo({ type, placeholder }: { type: string; placeholder: string }) {
     return (
         <div>
-            <p>{placeholder}:</p>
-            <Input className="my-4" type={type} placeholder={placeholder} />
+            <p><b>{placeholder}:</b></p>
+            <Input className="my-4 md:h-10 md:text-base" type={type} placeholder={placeholder} />
         </div>
     );
 }
 
 export default function Home() {
     return (
-        <div className="w-dvw sm:w-lg">
+        <div className="w-dvw sm:w-lg ">
             <Card>
                 <CardHeader>
                     <CardTitle className="sm: text-2xl flex justify-center">Iniciar Sesión</CardTitle>
@@ -29,10 +29,15 @@ export default function Home() {
                 <CardContent>
                     <InputDemo type="email" placeholder="Correo Electrónico" />
                     <InputDemo type="password" placeholder="Contraseña" />
-                    <Button type="submit" className="w-full">Iniciar Sesión</Button>
+                    <Button type="submit" className="w-full md:h-10">Iniciar Sesión</Button>
                 </CardContent>
-                <CardFooter>
-                    
+                <CardFooter className="flex flex-col justify-center">
+                    <a href="" className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800 ">
+                        Ya tienes una cuenta?
+                    </a>
+                    <a href="" className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800 ">
+                        Olvidaste tu Contraseña?
+                    </a>
                 </CardFooter>
             </Card>
         </div>
