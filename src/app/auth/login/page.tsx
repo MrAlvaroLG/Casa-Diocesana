@@ -27,15 +27,31 @@ export default function Home() {
                     <CardDescription></CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <InputDemo type="email" placeholder="Correo Electrónico" />
-                    <InputDemo type="password" placeholder="Contraseña" />
-                    <Button type="submit" className="w-full md:h-10">Iniciar Sesión</Button>
+                    <div className="mb-4">
+                        <p><b>Correo Electrónico:</b></p>
+                        <Input 
+                            className="mt-2 mb-2 md:h-10 md:text-base" 
+                            type="email" 
+                            name="email"
+                            placeholder="Correo Electrónico" 
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <p><b>Contraseña:</b></p>
+                        <Input 
+                            className="mt-2 mb-2 md:h-10 md:text-base" 
+                            type="password" 
+                            name="password"
+                            placeholder="Contraseña" 
+                        />
+                    </div>
+                    <Button type="submit" className="w-full text-xl md:h-12 mt-6 mb-2"> Iniciar Sesion </Button>
                 </CardContent>
                 <CardFooter className="flex flex-col justify-center">
-                    <a href="/auth/signup" className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800 ">
+                    <a href="/auth/signup" className=" mb-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800 ">
                         No tienes una cuenta?
                     </a>
-                    <a href="" className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800 ">
+                    <a href="" className="mt-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800 ">
                         Olvidaste tu Contraseña?
                     </a>
                 </CardFooter>
