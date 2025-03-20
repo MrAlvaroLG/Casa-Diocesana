@@ -68,7 +68,7 @@ export default function Home() {
                         placeholder="Contraseña" 
                     />
                     <Button 
-                        className="w-full text-xl md:h-12 my-6" 
+                        className="w-full text-xl h-12 md:h-16 my-6" 
                         type="submit">
                         Crear Cuenta
                     </Button>
