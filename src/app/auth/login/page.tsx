@@ -30,7 +30,7 @@ export default function Home() {
                     />
                     <Button 
                         type="submit" 
-                        className="w-full text-xl md:h-12 mt-4 mb-2"> 
+                        className="w-full text-xl h-12 md:h-16 my-6"> 
                         Iniciar Sesion 
                     </Button>
                 </CardContent>
