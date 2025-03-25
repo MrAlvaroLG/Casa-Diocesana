@@ -1,67 +1,95 @@
-export type SignupFormData = {
-    email: string;
-    rol: string;
-    password: string;
-    confirmPassword: string;
-};
-
-export type ValidationErrors = {
-    email?: string;
-    rol?: string;
-    password?: string;
-    confirmPassword?: string;
-    general?: string;
-};
-
-export function validateSignupForm(data: SignupFormData): ValidationErrors {
-    const errors: ValidationErrors = {};
-
-  // Validación del correo electrónico
-    if (!data.email) {
-    errors.email = "El correo electrónico es obligatorio";
-    } else if (!isValidEmail(data.email)) {
-    errors.email = "El formato del correo electrónico no es válido";
-    }
-
-  // Validación del rol
-    const rolesValidos = ["Laico", "Religiosa", "Religioso", "Diacono", "Sacerdote"];
-    if (!data.rol) {
-    errors.rol = "Por favor selecciona un rol";
-    } else if (!rolesValidos.includes(data.rol)) {
-    errors.rol = "El rol seleccionado no es válido";
-    } 
-
-  // Validación de la contraseña
-    if (!data.password) {
-        errors.password = "La contraseña es obligatoria";
-    } else {
-        if (data.password.length < 8) {
-            errors.password = "La contraseña debe tener al menos 8 caracteres";
-        } else if (!/[A-Z]/.test(data.password)) {
-            errors.password = "La contraseña debe incluir al menos una letra mayúscula";
-        } else if (!/[0-9]/.test(data.password)) {
-            errors.password = "La contraseña debe incluir al menos un número";
-        }
-    }
-
-  // Validación de la confirmación de contraseña
-    if (!data.confirmPassword) {
-        errors.confirmPassword = "Por favor confirma tu contraseña";
-    } else if (data.password !== data.confirmPassword) {
-        errors.confirmPassword = "Las contraseñas no coinciden";
-    }
-
-    return errors;
+// Valida el email
+export function isValidEmail(email: string): string {
+  if (email === "") return "El correo electrónico es obligatorio.";
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(email.trim())) {
+    return "El correo electrónico no es válido.";
+  }
+  return "";
+}
+    
+// Valida el numero de telefono
+export function isValidPhone(phone: string): string {
+  const phoneRegex = /^[0-9]{8}$/;
+  if (phone === "") return "El número de teléfono es obligatorio.";
+  if (!phoneRegex.test(phone)) return "El número no es valido.";
+  return "";
+}
+  
+// Valida el nombre
+export function isValidName(name: string): string {
+  if(name === "") return "El nombre es obligatorio.";
+  if(name.length < 3) return "El nombre debe tener al menos 3 caracteres.";
+  return "";
+}
+  
+// Valida la contraseña
+export function isValidPassword(password: string): string {
+  if(password === "") return "La contraseña es obligatoria.";
+  if(password.length < 8) return "La contraseña debe tener al menos 8 caracteres.";
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasLowercase = /[a-z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+  if (!(hasUppercase && hasLowercase && hasNumber)) {
+    return "La contraseña debe incluir mayúsculas, minúsculas y números.";
+  }
+  if (!hasSpecialChar) {
+    return "La contraseña debe incluir al menos un carácter especial (!@#$%^&*(),.?\":{}|<>).";
+  }
+  return "";
+}
+  
+// Valida que las contraseñas coincidan
+export function isPasswordMatch(password: string, confirmPassword: string): string {
+  if (confirmPassword === "") return "Debe confirmar la contraseña.";
+  if (password !== confirmPassword) return "Las contraseñas no coinciden.";
+  return "";
 }
 
-// Función auxiliar para validar el formato de correo electrónico
-function isValidEmail(email: string): boolean {
-    // Expresión regular simple para validar correo electrónico
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+// Valida el tipo de usuario
+export function isValidUserType(userType: string): string {
+  if (userType === "") return "Debe seleccionar un tipo de usuario.";
+  const validTypes = ["Laico", "Religiosa", "Religioso", "Diacono", "Sacerdote"];
+  if (!validTypes.includes(userType)) return "El tipo de usuario seleccionado no es válido.";
+  return "";
 }
 
-// Función para verificar si hay algún error en la validación
-export function hasErrors(errors: ValidationErrors): boolean {
-    return Object.keys(errors).length > 0;
+export interface FormData {
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  userType: string; // Añadido campo userType
+}
+  
+export interface ValidationErrors {
+  name?: string;
+  phone?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  userType?: string; // Añadido campo userType
+}
+  
+// Valida todos los campos del formulario y devuelve un objeto con los errores.
+export function validateForm(data: FormData): ValidationErrors {
+  const errors: ValidationErrors = {};
+  
+  const nameError = isValidName(data.name);
+  const phoneError = isValidPhone(data.phone);
+  const emailError = isValidEmail(data.email);
+  const passwordError = isValidPassword(data.password);
+  const confirmPasswordError = isPasswordMatch(data.password, data.confirmPassword);
+  const userTypeError = isValidUserType(data.userType);
+  
+  if (nameError) errors.name = nameError;
+  if (phoneError) errors.phone = phoneError;
+  if (emailError) errors.email = emailError;
+  if (passwordError) errors.password = passwordError;
+  if (confirmPasswordError) errors.confirmPassword = confirmPasswordError;
+  if (userTypeError) errors.userType = userTypeError;
+
+  return errors;
 }
