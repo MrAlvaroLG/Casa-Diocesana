@@ -46,10 +46,13 @@ const EyeClosedIcon = () => (
   </svg>
 );
 
-export default function Home() {
+export default function SignupPage() {
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [serverMessage, setServerMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
+  
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
@@ -66,15 +69,70 @@ export default function Home() {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
+    // Primera validación en el cliente
     const validationErrors = validateForm(formData);
     setErrors(validationErrors);
   
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Formulario válido. Enviar datos:", formData);
-      // DB LOGIC
+      setIsLoading(true);
+      
+      try {
+        // Hacer la petición HTTP a tu API route
+        const response = await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          // Registro exitoso
+          setServerMessage({
+            type: 'success',
+            text: data.message || 'Cuenta creada con éxito. Redirigiendo al inicio de sesión...'
+          });
+          
+          // Resetear el formulario
+          setFormData({
+            name: "",
+            phone: "",
+            userType: "", 
+            email: "",
+            password: "",
+            confirmPassword: "",
+          });
+          
+          // Redireccionar después de un breve retraso
+          setTimeout(() => {
+            window.location.href = '/auth/login';
+          }, 2000);
+        } else {
+          // Error en el registro
+          setServerMessage({
+            type: 'error',
+            text: data.message || 'Error al crear la cuenta'
+          });
+          
+          // Si hay errores de validación del servidor, actualiza el estado de errores
+          if (data.errors) {
+            setErrors(data.errors);
+          }
+        }
+      } catch (error) {
+        console.error('Error de conexión:', error);
+        setServerMessage({
+          type: 'error',
+          text: 'Error de conexión con el servidor'
+        });
+      } finally {
+        setIsLoading(false);
+      }
     } else {
       console.log("Errores de validación:", validationErrors);
     }
@@ -89,6 +147,14 @@ export default function Home() {
           </CardTitle>
         </CardHeader>
         <CardContent>
+          {serverMessage && (
+            <div className={`mb-4 p-3 rounded-md ${
+              serverMessage.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+            }`}>
+              {serverMessage.text}
+            </div>
+          )}
+          
           <form onSubmit={handleSubmit}>
             <div>
               <Input
@@ -123,7 +189,7 @@ export default function Home() {
                 onValueChange={(value) => handleChange("userType", value)}
               >
                 <SelectTrigger className="w-full text-base mt-8 mb-2 data-[size=default]:h-9 md:data-[size=default]:h-12 md:text-base">
-                  <SelectValue placeholder="Seleccionar" />
+                  <SelectValue placeholder="Seleccionar tipo de usuario" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem className="md:h-10 md:text-base" value="Laico">
@@ -211,8 +277,12 @@ export default function Home() {
               )}
             </div>
             
-            <Button className="w-full text-xl sm:text-2xl h-12 md:h-16 my-6" type="submit">
-              Crear Cuenta
+            <Button 
+              className="w-full text-xl sm:text-2xl h-12 md:h-16 my-6" 
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Creando cuenta...' : 'Crear Cuenta'}
             </Button>
           </form>
         </CardContent>
