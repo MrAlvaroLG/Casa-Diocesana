@@ -20,6 +20,9 @@ import {
 
 import { validateForm, FormData, ValidationErrors } from "./validation";
 
+// En la parte superior de tu archivo, fuera del componente
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
 // Componente de icono para el ojo abierto
 const EyeOpenIcon = () => (
   <svg 
@@ -80,8 +83,8 @@ export default function SignupPage() {
       setIsLoading(true);
       
       try {
-        // Hacer la petición HTTP a tu API route
-        const response = await fetch('/api/auth/signup', {
+        // Usa la variable de entorno
+        const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
