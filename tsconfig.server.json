@@ -1,11 +1,20 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "module": "commonjs",
-        "outDir": "dist",
+        "module": "CommonJS",
+        "moduleResolution": "node",
         "target": "es2017",
-        "isolatedModules": false,
-        "noEmit": false
+        "outDir": "dist",
+        "rootDir": "src",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "paths": {
+            "@/*": ["./src/*"]
+        }
     },
-    "include": ["src/server/**/*.ts", "src/configuration/**/*.ts", "src/models/**/*.ts"]
+    "include": ["src/server/**/*.ts", "src/configuration/**/*.ts", "src/models/**/*.ts"],
+    "exclude": ["node_modules"]
 }
