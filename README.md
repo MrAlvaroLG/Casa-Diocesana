@@ -1,6 +1,6 @@
 # Casa Diocesana
 
-Plataforma web de administración y reservas para Casa Diocesana de la Pastoral Juvenil.
+Plataforma web de administración y reservas para Casa Diocesana de Camagüey.
 
 ## Características
 
