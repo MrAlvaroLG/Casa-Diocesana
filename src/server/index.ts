@@ -15,7 +15,7 @@ const app = express();
 // Middleware básico
 app.use(cors());
 app.use(helmet({
-  contentSecurityPolicy: false, // Deshabilitado para desarrollo, habilitar en producción
+  contentSecurityPolicy: true, // Deshabilitado para desarrollo, habilitar en producción
 }));
 app.use(compression());
 app.use(express.json());
@@ -35,7 +35,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Manejador de errores (necesita 4 parámetros obligatoriamente)
-app.use((err: Error, _req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: Error, _req: express.Request, res: express.Response) => {
     console.error(err.stack);
     res.status(500).json({
         success: false,
