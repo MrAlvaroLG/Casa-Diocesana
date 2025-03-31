@@ -25,6 +25,7 @@ import {
   validatePassword,
   validateConfirmPassword,
 } from "./validation";
+import Image from "next/image";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -136,10 +137,11 @@ export default function SignUp() {
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                 onClick={() => setShowPassword(!showPassword)}
               >
-              <img
+              <Image
                 src={showPassword ? "/icons/eye-slash.svg" : "/icons/eye.svg"}
                 alt={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-                className="w-5 h-5"
+                width={20}
+                height={20}
               />
               </button>
             </div>
@@ -158,10 +160,11 @@ export default function SignUp() {
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
-              <img
+              <Image
                 src={showConfirmPassword ? "/icons/eye-slash.svg" : "/icons/eye.svg"}
                 alt={showConfirmPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-                className="w-5 h-5"
+                width={20}
+                height={20}
               />
               </button>
             </div>

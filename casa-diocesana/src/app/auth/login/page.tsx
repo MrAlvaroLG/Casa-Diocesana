@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function SignUp() {
 const [showPassword, setShowPassword] = useState(false);
@@ -43,11 +44,12 @@ const [showPassword, setShowPassword] = useState(false);
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                 onClick={() => setShowPassword(!showPassword)}
               >
-              <img
-                src={showPassword ? "/icons/eye-slash.svg" : "/icons/eye.svg"}
-                alt={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-                className="w-5 h-5"
-              />
+                <Image
+                  src={showPassword ? "/icons/eye-slash.svg" : "/icons/eye.svg"}
+                  alt={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                  width={20}
+                  height={20}
+                />
               </button>
             </div>
             
