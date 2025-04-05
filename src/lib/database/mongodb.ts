@@ -1,39 +1,41 @@
-import mongoose from 'mongoose';
-
-if (!process.env.MONGODB_URI) {
-    throw new Error('Por favor, define la variable de entorno MONGODB_URI');
-}
+import mongoose, { Mongoose } from 'mongoose';
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-interface GlobalMongo {
-    conn: typeof mongoose | null;
-    promise: Promise<typeof mongoose> | null;
+if (!MONGODB_URI) {
+    throw new Error(
+        'Please define the MONGODB_URI environment variable inside your .env file'
+    );
 }
+
+interface MongooseCache {
+    conn: Mongoose | null;
+    promise: Promise<Mongoose> | null;
+}
+
 
 declare global {
-    var mongoose: GlobalMongo;
+    // eslint-disable-next-line no-var
+    var mongooseCache: MongooseCache | undefined;
 }
 
-let cached = global.mongoose;
-
+let cached: MongooseCache = global.mongooseCache as MongooseCache;
 if (!cached) {
-    cached = global.mongoose = { conn: null, promise: null };
+    cached = global.mongooseCache = { conn: null, promise: null };
 }
 
-async function connectToDatabase() {
-    if (cached.conn) {
-        return cached.conn;
-    }
-
+async function dbConnect(): Promise<Mongoose> {
+    if (cached.conn) return cached.conn;
     if (!cached.promise) {
         const opts = {
-            bufferCommands: false,
+            bufferCommands: false, 
         };
-
-        cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-            console.log('Conexión a MongoDB establecida correctamente');
-            return mongoose;
+        cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongooseInstance) => {
+            return mongooseInstance;
+        }).catch(error => {
+            console.error("❌ Error al conectar a MongoDB:", error);
+            cached.promise = null;
+            throw error;
         });
     }
 
@@ -43,8 +45,7 @@ async function connectToDatabase() {
         cached.promise = null;
         throw e;
     }
-
     return cached.conn;
 }
 
-export default connectToDatabase;
+export default dbConnect;
