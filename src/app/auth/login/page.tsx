@@ -51,8 +51,8 @@ export default function LogIn() {
       setIsLoading(false); 
     }
   };
-
-
+  
+  
   return (
     <div className="w-dvw sm:w-lg">
       <Card>
@@ -62,6 +62,11 @@ export default function LogIn() {
           </CardTitle>
         </CardHeader>
         <CardContent>
+          {error && ( 
+            <p className="mb-4 p-3 rounded text-center bg-red-100 text-red-800">
+              {error} 
+            </p>
+          )}
           <form onSubmit={handleSubmit}>
             <div>
               <Input
@@ -100,11 +105,6 @@ export default function LogIn() {
                 />
               </button>
             </div>
-            {error && ( 
-              <p className="mt-4 text-center text-red-600 text-sm">
-                {error} 
-              </p>
-            )}
             <Button
               className="md:py-7 mt-8 mb-2 w-full h-12 text-xl"
               type="submit"
