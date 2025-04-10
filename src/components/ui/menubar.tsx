@@ -14,7 +14,7 @@ function Menubar({
     <MenubarPrimitive.Root
       data-slot="menubar"
       className={cn(
-        "bg-background flex h-9 md:h-12 items-center gap-1 rounded-md border p-1 shadow-xs",
+        "bg-background flex h-9 md:h-12 items-center gap-1 md:gap-6 rounded-md border p-1 shadow-xs",
         className
       )}
       {...props}
@@ -50,17 +50,20 @@ function MenubarRadioGroup({
 
 function MenubarTrigger({
   className,
+  children,
   ...props
 }: React.ComponentProps<typeof MenubarPrimitive.Trigger>) {
   return (
     <MenubarPrimitive.Trigger
       data-slot="menubar-trigger"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground flex items-center rounded-sm px-2 py-1 text-sm font-medium outline-hidden select-none",
+        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground flex items-center rounded-sm px-2 py-1 text-sm md:text-base font-medium outline-hidden select-none",
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </MenubarPrimitive.Trigger>
   )
 }
 
