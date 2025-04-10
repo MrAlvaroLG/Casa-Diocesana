@@ -129,7 +129,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="w-dvw sm:w-lg">
+    <div className="w-lg">
       <Card>
         <CardHeader>
           <CardTitle className="text-xl sm:text-2xl mt-2 flex justify-center">
@@ -148,7 +148,7 @@ export default function SignUp() {
           <form onSubmit={handleSubmit}>
             <div>
               <Input
-                className={`mt-8 mb-2 md:h-12 md:text-base ${formErrors.name ? 'border-red-500' : ''}`}
+                className={`mt-5 mb-2 md:h-12 md:text-base ${formErrors.name ? 'border-red-500' : ''}`}
                 type="text"
                 name="name"
                 value={name}
@@ -160,7 +160,7 @@ export default function SignUp() {
             </div>
             <div>
               <Input
-                className={`mt-8 mb-2 md:h-12 md:text-base ${formErrors.number ? 'border-red-500' : ''}`}
+                className={`mt-5 mb-2 md:h-12 md:text-base ${formErrors.number ? 'border-red-500' : ''}`}
                 type="tel"
                 name="number"
                 placeholder="Número de Teléfono"
@@ -172,7 +172,7 @@ export default function SignUp() {
             </div>
             <div>
               <Select onValueChange={setUserType} value={userType} disabled={isLoading}>
-                <SelectTrigger className={`w-full text-base mt-8 mb-2 data-[size=default]:h-9 md:data-[size=default]:h-12 md:text-base ${formErrors.userType ? 'border-red-500' : ''}`}>
+                <SelectTrigger className={`w-full text-base mt-5 mb-2 data-[size=default]:h-9 md:data-[size=default]:h-12 md:text-base ${formErrors.userType ? 'border-red-500' : ''}`}>
                   <SelectValue placeholder="Seleccionar tipo de usuario" />
                 </SelectTrigger>
                 <SelectContent>
@@ -187,7 +187,7 @@ export default function SignUp() {
             </div>
             <div>
               <Input
-                className={`mt-8 mb-2 md:h-12 md:text-base ${formErrors.email ? 'border-red-500' : ''}`}
+                className={`mt-5 mb-2 md:h-12 md:text-base ${formErrors.email ? 'border-red-500' : ''}`}
                 type="email"
                 name="email"
                 placeholder="Correo Electrónico"
@@ -199,7 +199,7 @@ export default function SignUp() {
             </div>
             <div className="relative">
               <Input
-                className={`mt-8 mb-2 md:h-12 md:text-base pr-10 ${formErrors.password ? 'border-red-500' : ''}`}
+                className={`mt-5 mb-2 md:h-12 md:text-base pr-10 ${formErrors.password ? 'border-red-500' : ''}`}
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 placeholder="Contraseña"
@@ -224,7 +224,7 @@ export default function SignUp() {
             {formErrors.password && <p className="text-red-500">{formErrors.password}</p>}
             <div className="relative">
               <Input
-                className={`mt-8 mb-2 md:h-12 md:text-base pr-10 ${formErrors.confirmPassword ? 'border-red-500' : ''}`}
+                className={`mt-5 mb-2 md:h-12 md:text-base pr-10 ${formErrors.confirmPassword ? 'border-red-500' : ''}`}
                 type={showConfirmPassword ? 'text' : 'password'}
                 name="confirmPassword"
                 placeholder="Confirmar Contraseña"
@@ -248,7 +248,7 @@ export default function SignUp() {
             </div>
             {formErrors.confirmPassword && <p className="text-red-500">{formErrors.confirmPassword}</p>}
             <Button
-              className="md:py-7 mt-8 mb-2 w-full h-12 text-xl"
+              className="md:py-7 mt-5 w-full h-12 text-xl"
               type="submit"
               disabled={isLoading}
             >
@@ -259,7 +259,7 @@ export default function SignUp() {
         <CardFooter className="flex flex-col justify-center">
           <a
             href="/auth/login" 
-            className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800"
+            className=" text-blue-600 hover:text-blue-800 hover:decoration-blue-800"
           >
             ¿Ya tienes una cuenta?
           </a>

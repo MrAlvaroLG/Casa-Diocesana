@@ -54,7 +54,7 @@ export default function LogIn() {
   
   
   return (
-    <div className="w-dvw sm:w-lg">
+    <div className="w-lg">
       <Card>
         <CardHeader>
           <CardTitle className="text-xl sm:text-2xl mt-2 flex justify-center">
@@ -70,7 +70,7 @@ export default function LogIn() {
           <form onSubmit={handleSubmit}>
             <div>
               <Input
-                className={`mt-8 mb-2 md:h-12 md:text-base`}
+                className={`mt-5 mb-2 md:h-12 md:text-base`}
                 type="email"
                 name="email"
                 placeholder="Correo Electrónico"
@@ -82,7 +82,7 @@ export default function LogIn() {
             </div>
             <div className="relative">
               <Input
-                className={`mt-8 mb-2 md:h-12 md:text-base pr-10`}
+                className={`mt-5 mb-2 md:h-12 md:text-base pr-10`}
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 placeholder="Contraseña"
@@ -106,7 +106,7 @@ export default function LogIn() {
               </button>
             </div>
             <Button
-              className="md:py-7 mt-8 mb-2 w-full h-12 text-xl"
+              className="md:py-7 mt-5 mb-2 w-full h-12 text-xl"
               type="submit"
               disabled={isLoading}
             >
@@ -117,13 +117,13 @@ export default function LogIn() {
         <CardFooter className="flex flex-col justify-center">
           <a
             href="/auth/signup"
-            className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800"
+            className=" text-blue-600 hover:text-blue-800 hover:decoration-blue-800"
           >
             No tienes una cuenta?
           </a>
           <a
             href="/auth/login"
-            className="my-2 text-blue-600 hover:text-blue-800 hover:decoration-blue-800"
+            className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800"
           >
             Olvidaste tu contraseña?
           </a>
