@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import { Menu, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
     const [isMobile, setIsMobile] = useState(false);
@@ -21,8 +22,8 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
     
     useEffect(() => {
         const checkIfMobile = () => {
-            setIsMobile(window.innerWidth < 768);
-            if (window.innerWidth >= 768) {
+            setIsMobile(window.innerWidth < 900);
+            if (window.innerWidth >= 900) {
                 setMenuOpen(false);
             }
         };
@@ -64,22 +65,30 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
     
     return (
         <html lang="en">
-            <header>
+            <header className={`${isMobile ? 'p-2' : 'py-5'}`}>
                 {isMobile && (
-                    <div className="flex justify-start p-4">
+                    <div className="flex flex-row items-center content-center justify-start h-12">
                         <button 
                             onClick={toggleMenu} 
-                            className="focus:outline-none"
+                            className="ml-2 focus:outline-none"
                             aria-label="Menú"
                         >
                             <Menu size={24} />
                         </button>
+                        <div className="absolute right-3">
+                            <Button className="mx-3 text-xs" variant="secondary">
+                                <Link href="/auth/signup">Crear Cuenta</Link>
+                            </Button>
+                            <Button className="mx-3 text-xs">
+                                <Link href="/auth/login">Iniciar Sesion</Link>
+                            </Button>
+                        </div>
                     </div>
                 )}
                 
                 <Menubar 
-                    className={`flex border-none shadow-none 
-                        ${isMobile ? 'flex-col absolute w-full z-10 transition-all duration-300 ease-in-out' : 'justify-center'}
+                    className={`md:ml-10 flex border-none shadow-none 
+                        ${isMobile ? 'flex-col absolute w-full z-10 transition-all duration-300 ease-in-out' : ''}
                         ${isMobile && !menuOpen ? 'opacity-0 -translate-y-5 pointer-events-none' : 'opacity-100 translate-y-0'}`}>
                     <MenubarMenu>
                         <MenubarTrigger className={`${isMobile ? 'w-full text-center' : ''}`}>
@@ -106,7 +115,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                                 }`}
                                 ref={submenuRef}
                             >
-                                <div className="bg-gray-50 w-full rounded-md pl-4">
+                                <div className=" w-full rounded-md pl-4">
                                     <div className="py-1.5">
                                         <Link 
                                             href="../main/guia-diocesana/horarios-de-misa" 
@@ -138,7 +147,6 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                             </div>
                         </div>
                     ) : (
-                        // Menú normal para desktop
                         <MenubarMenu>
                             <MenubarTrigger 
                                 data-menu-trigger="guia-diocesana"
@@ -176,7 +184,16 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                             <Link href="../main/acerca" onClick={() => isMobile && setMenuOpen(false)}>Acerca de Nosotros</Link>
                         </MenubarTrigger>
                     </MenubarMenu>
+                    <div className={`absolute right-7 ${isMobile ? 'hidden' : ''}`}>
+                        <Button className="mx-3" variant="secondary">
+                            <Link href="/auth/signup">Crear Cuenta</Link>
+                        </Button>
+                        <Button className="mx-3">
+                            <Link href="/auth/login">Iniciar Sesion</Link>
+                        </Button>
+                    </div>
                 </Menubar>
+
             </header>
             <body>
                 {children}
