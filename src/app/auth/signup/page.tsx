@@ -174,7 +174,7 @@ export default function SignUp() {
             </div>
             <div>
               <Select onValueChange={setUserType} value={userType} disabled={isLoading} >
-                <SelectTrigger className={`w-full text-base mt-5 mb-2 data-[size=default]:h-9 md:data-[size=default]:h-12 md:text-base ${formErrors.userType ? 'border-red-500' : ''}`}>
+                <SelectTrigger className={`w-full text-base mt-5 mb-2 data-[size=default]:h-11 md:data-[size=default]:h-12 md:text-base ${formErrors.userType ? 'border-red-500' : ''}`}>
                   <SelectValue placeholder="Seleccionar tipo de usuario" />
                 </SelectTrigger>
                 <SelectContent>
