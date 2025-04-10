@@ -1,22 +1,17 @@
 import { NextResponse } from 'next/server';
-import dbConnect from '@/lib/database/mongodb'; // Importa tu conector de BD
-import UserModel from '@/models/user';        // Importa tu modelo de Usuario
-import bcrypt from 'bcryptjs';                // Importa bcrypt para hashear
+import dbConnect from '@/lib/database/mongodb'; 
+import UserModel from '@/models/user';        
+import bcrypt from 'bcryptjs';              
 import {
     validateName,
     validateNumber,
     validateUserType,
     validateEmail,
     validatePassword,
-    // No necesitamos validateConfirmPassword en el backend directamente,
-    // solo nos importa validar la contraseña principal que vamos a hashear.
-} from '@/lib/validators/authValidation'; // <-- IMPORTANTE: Asegúrate que la ruta sea correcta (asumiendo que lo moviste a lib/validators)
-
-// --- Función que maneja las peticiones POST a /api/auth/signup ---
+} from '@/lib/validators/authValidation'; 
 export async function POST(req: Request) {
-    console.log('API Route /api/auth/signup llamada (POST)'); // Log para depuración
+    console.log('API Route /api/auth/signup llamada (POST)'); 
 
-    // 1. Conectar a la Base de Datos (siempre primero)
     try {
         console.log('Conectando a la base de datos...');
         await dbConnect();
@@ -29,7 +24,6 @@ export async function POST(req: Request) {
         );
     }
 
-    // 2. Leer y Parsear los Datos del Cuerpo de la Petición
     let body;
     try {
         body = await req.json();

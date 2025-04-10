@@ -153,6 +153,7 @@ export default function SignUp() {
                 name="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required 
                 placeholder="Nombre y Apellidos"
                 disabled={isLoading}
               />
@@ -166,12 +167,13 @@ export default function SignUp() {
                 placeholder="Número de Teléfono"
                 value={number}
                 onChange={(e) => setNumber(e.target.value)}
+                required 
                 disabled={isLoading}
               />
               {formErrors.number && <p className="text-red-500">{formErrors.number}</p>}
             </div>
             <div>
-              <Select onValueChange={setUserType} value={userType} disabled={isLoading}>
+              <Select onValueChange={setUserType} value={userType} disabled={isLoading} >
                 <SelectTrigger className={`w-full text-base mt-5 mb-2 data-[size=default]:h-9 md:data-[size=default]:h-12 md:text-base ${formErrors.userType ? 'border-red-500' : ''}`}>
                   <SelectValue placeholder="Seleccionar tipo de usuario" />
                 </SelectTrigger>
@@ -193,6 +195,7 @@ export default function SignUp() {
                 placeholder="Correo Electrónico"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required 
                 disabled={isLoading}
               />
               {formErrors.email && <p className="text-red-500">{formErrors.email}</p>}
@@ -205,6 +208,7 @@ export default function SignUp() {
                 placeholder="Contraseña"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required 
                 disabled={isLoading}
               />
               <button
@@ -230,6 +234,7 @@ export default function SignUp() {
                 placeholder="Confirmar Contraseña"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                required 
                 disabled={isLoading}
               />
               <button
