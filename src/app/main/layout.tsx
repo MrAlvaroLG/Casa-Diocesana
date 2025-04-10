@@ -104,7 +104,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                             >
                                 <span>Guía Diocesana</span>
                                 <ChevronDown 
-                                    className={`ml-1 h-4 w-4 transition-transform duration-300 ${
+                                    className={`mr-3 h-4 w-4 transition-transform duration-300 ${
                                         openSubmenu === 'guia' ? 'transform rotate-180' : ''
                                     }`} 
                                 />
@@ -115,7 +115,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                                 }`}
                                 ref={submenuRef}
                             >
-                                <div className=" w-full rounded-md pl-4">
+                                <div className="border-l-2 w-full ml-4 pl-2">
                                     <div className="py-1.5">
                                         <Link 
                                             href="../main/guia-diocesana/horarios-de-misa" 
