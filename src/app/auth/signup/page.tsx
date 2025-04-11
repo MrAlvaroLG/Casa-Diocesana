@@ -27,6 +27,7 @@ import {
 } from "../../../lib/validators/authValidation";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 interface ApiErrors {
   name?: string;
@@ -79,7 +80,11 @@ export default function SignUp() {
     setApiStatusMessage(null);
     setFormErrors({});
 
-    if (!validateForm()) console.log("Errores de validación del cliente encontrados.");
+    if (!validateForm()) {
+      console.log("Errores de validación del cliente encontrados.");
+      return;
+    }
+    
     setIsLoading(true);
 
     const formData = {
@@ -129,147 +134,147 @@ export default function SignUp() {
   };
 
   return (
-    <div className="w-lg">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-xl sm:text-2xl mt-2 flex justify-center">
-            Crear Cuenta
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {apiStatusMessage && (
-            <div className={`mb-4 p-3 rounded text-center ${
-              apiStatusMessage.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-            }`}>
-              {apiStatusMessage.message}
-            </div>
-          )}
-          {formErrors.general && <p className="text-red-500 mb-2">{formErrors.general}</p>}
-          <form onSubmit={handleSubmit}>
-            <div>
-              <Input
-                className={`mt-5 mb-2 md:h-12 md:text-base ${formErrors.name ? 'border-red-500' : ''}`}
-                type="text"
-                name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required 
-                placeholder="Nombre y Apellidos"
-                disabled={isLoading}
-              />
-              {formErrors.name && <p className="text-red-500">{formErrors.name}</p>}
-            </div>
-            <div>
-              <Input
-                className={`mt-5 mb-2 md:h-12 md:text-base ${formErrors.number ? 'border-red-500' : ''}`}
-                type="tel"
-                name="number"
-                placeholder="Número de Teléfono"
-                value={number}
-                onChange={(e) => setNumber(e.target.value)}
-                required 
-                disabled={isLoading}
-              />
-              {formErrors.number && <p className="text-red-500">{formErrors.number}</p>}
-            </div>
-            <div>
-              <Select onValueChange={setUserType} value={userType} disabled={isLoading} >
-                <SelectTrigger className={`w-full text-base mt-5 mb-2 data-[size=default]:h-11 md:data-[size=default]:h-12 md:text-base ${formErrors.userType ? 'border-red-500' : ''}`}>
-                  <SelectValue placeholder="Seleccionar tipo de usuario" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem className="md:h-10 md:text-base" value="Laico"> Laico </SelectItem>
-                  <SelectItem className="md:h-10 md:text-base" value="Religiosa"> Religiosa </SelectItem>
-                  <SelectItem className="md:h-10 md:text-base" value="Religioso"> Religioso </SelectItem>
-                  <SelectItem className="md:h-10 md:text-base" value="Diacono"> Diacono </SelectItem>
-                  <SelectItem className="md:h-10 md:text-base" value="Sacerdote"> Sacerdote </SelectItem>
-                </SelectContent>
-              </Select>
-              {formErrors.userType && <p className="text-red-500">{formErrors.userType}</p>}
-            </div>
-            <div>
-              <Input
-                className={`mt-5 mb-2 md:h-12 md:text-base ${formErrors.email ? 'border-red-500' : ''}`}
-                type="email"
-                name="email"
-                placeholder="Correo Electrónico"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required 
-                disabled={isLoading}
-              />
-              {formErrors.email && <p className="text-red-500">{formErrors.email}</p>}
-            </div>
-            <div className="relative">
-              <Input
-                className={`mt-5 mb-2 md:h-12 md:text-base pr-10 ${formErrors.password ? 'border-red-500' : ''}`}
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                placeholder="Contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required 
-                disabled={isLoading}
-              />
-              <button
-                type="button"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                onClick={() => setShowPassword(!showPassword)}
-                disabled={isLoading}
-              >
+    <Card className="w-full shadow-md">
+      <CardHeader>
+        <CardTitle className="text-xl sm:text-2xl text-center">
+          Crear Cuenta
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        {apiStatusMessage && (
+          <div className={`mb-4 p-3 rounded text-center ${
+            apiStatusMessage.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+          }`}>
+            {apiStatusMessage.message}
+          </div>
+        )}
+        {formErrors.general && <p className="text-red-500 mb-2">{formErrors.general}</p>}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <Input
+              className={`h-9 md:h-11 md:text-base ${formErrors.name ? 'border-red-500' : ''}`}
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required 
+              placeholder="Nombre y Apellidos"
+              disabled={isLoading}
+            />
+            {formErrors.name && <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>}
+          </div>
+          <div>
+            <Input
+              className={`h-9 md:h-11 md:text-base ${formErrors.number ? 'border-red-500' : ''}`}
+              type="tel"
+              name="number"
+              placeholder="Número de Teléfono"
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
+              required 
+              disabled={isLoading}
+            />
+            {formErrors.number && <p className="text-red-500 text-sm mt-1">{formErrors.number}</p>}
+          </div>
+          <div>
+            <Select onValueChange={setUserType} value={userType} disabled={isLoading} >
+              <SelectTrigger className={`w-full data-[size=default]:h-9 md:data-[size=default]:h-11 text-base ${formErrors.userType ? 'border-red-500' : ''}`}>
+                <SelectValue placeholder="Seleccionar tipo de usuario" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Laico">Laico</SelectItem>
+                <SelectItem value="Religiosa">Religiosa</SelectItem>
+                <SelectItem value="Religioso">Religioso</SelectItem>
+                <SelectItem value="Diacono">Diácono</SelectItem>
+                <SelectItem value="Sacerdote">Sacerdote</SelectItem>
+              </SelectContent>
+            </Select>
+            {formErrors.userType && <p className="text-red-500 text-sm mt-1">{formErrors.userType}</p>}
+          </div>
+          <div>
+            <Input
+              className={`h-9 md:h-11 md:text-base ${formErrors.email ? 'border-red-500' : ''}`}
+              type="email"
+              name="email"
+              placeholder="Correo Electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
+              disabled={isLoading}
+            />
+            {formErrors.email && <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>}
+          </div>
+          <div className="relative">
+            <Input
+              className={`h-9 md:h-11 md:text-base pr-10 ${formErrors.password ? 'border-red-500' : ''}`}
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required 
+              disabled={isLoading}
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              onClick={() => setShowPassword(!showPassword)}
+              disabled={isLoading}
+              aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+            >
               <Image
                 src={showPassword ? "/icons/eye-slash.svg" : "/icons/eye.svg"}
-                alt={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                alt=""
                 width={20}
                 height={20}
               />
-              </button>
-            </div>
-            {formErrors.password && <p className="text-red-500">{formErrors.password}</p>}
-            <div className="relative">
-              <Input
-                className={`mt-5 mb-2 md:h-12 md:text-base pr-10 ${formErrors.confirmPassword ? 'border-red-500' : ''}`}
-                type={showConfirmPassword ? 'text' : 'password'}
-                name="confirmPassword"
-                placeholder="Confirmar Contraseña"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required 
-                disabled={isLoading}
-              />
-              <button
-                type="button"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                disabled={isLoading}
-              >
+            </button>
+            {formErrors.password && <p className="text-red-500 text-sm mt-1">{formErrors.password}</p>}
+          </div>
+          <div className="relative">
+            <Input
+              className={`h-9 md:h-11 md:text-base pr-10 ${formErrors.confirmPassword ? 'border-red-500' : ''}`}
+              type={showConfirmPassword ? 'text' : 'password'}
+              name="confirmPassword"
+              placeholder="Confirmar Contraseña"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required 
+              disabled={isLoading}
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              disabled={isLoading}
+              aria-label={showConfirmPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+            >
               <Image
                 src={showConfirmPassword ? "/icons/eye-slash.svg" : "/icons/eye.svg"}
-                alt={showConfirmPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                alt=""
                 width={20}
                 height={20}
               />
-              </button>
-            </div>
-            {formErrors.confirmPassword && <p className="text-red-500">{formErrors.confirmPassword}</p>}
-            <Button
-              className="md:py-7 mt-5 w-full h-12 text-xl"
-              type="submit"
-              disabled={isLoading}
-            >
-              {isLoading ? 'Creando Cuenta...' : 'Crear Cuenta'}
-            </Button>
-          </form>
-        </CardContent>
-        <CardFooter className="flex flex-col justify-center">
-          <a
-            href="/auth/login" 
-            className=" text-blue-600 hover:text-blue-800 hover:decoration-blue-800"
+            </button>
+            {formErrors.confirmPassword && <p className="text-red-500 text-sm mt-1">{formErrors.confirmPassword}</p>}
+          </div>
+          <Button
+            className="w-full h-12 text-lg font-medium"
+            type="submit"
+            disabled={isLoading}
           >
-            ¿Ya tienes una cuenta?
-          </a>
-        </CardFooter>
-      </Card>
-    </div>
+            {isLoading ? 'Creando Cuenta...' : 'Crear Cuenta'}
+          </Button>
+        </form>
+      </CardContent>
+      <CardFooter className="flex justify-center">
+        <Link
+          href="/auth/login" 
+          className="text-blue-600 hover:text-blue-800 hover:underline"
+        >
+          ¿Ya tienes una cuenta?
+        </Link>
+      </CardFooter>
+    </Card>
   );
 }

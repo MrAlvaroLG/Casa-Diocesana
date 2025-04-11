@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 export default function LogIn() {
   const [email, setEmail] = useState("");
@@ -52,83 +53,81 @@ export default function LogIn() {
     }
   };
   
-  
   return (
-    <div className="w-lg">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-xl sm:text-2xl mt-2 flex justify-center">
-            Iniciar Sesion
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {error && ( 
-            <p className="mb-4 p-3 rounded text-center bg-red-100 text-red-800">
-              {error} 
-            </p>
-          )}
-          <form onSubmit={handleSubmit}>
-            <div>
-              <Input
-                className={`mt-5 mb-2 h-11 md:h-12 md:text-base`}
-                type="email"
-                name="email"
-                placeholder="Correo Electrónico"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)} 
-                required 
-                disabled={isLoading} 
-              />
-            </div>
-            <div className="relative">
-              <Input
-                className={`mt-5 mb-2 h-11 md:h-12 md:text-base pr-10`}
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                placeholder="Contraseña"
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-                required
-                disabled={isLoading}
-              />
-              <button
-                type="button"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                onClick={() => setShowPassword(!showPassword)}
-                disabled={isLoading} 
-              >
-                <Image
-                  src={showPassword ? "/icons/eye-slash.svg" : "/icons/eye.svg"}
-                  alt={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-                  width={20}
-                  height={20}
-                />
-              </button>
-            </div>
-            <Button
-              className="md:py-7 mt-5 mb-2 w-full h-12 text-xl"
-              type="submit"
+    <Card className="w-full shadow-md">
+      <CardHeader>
+        <CardTitle className="text-xl sm:text-2xl text-center">
+          Iniciar Sesión
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        {error && ( 
+          <p className="mb-4 p-3 rounded text-center bg-red-100 text-red-800">
+            {error} 
+          </p>
+        )}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <Input
+              className="h-11 md:h-12 md:text-base"
+              type="email"
+              name="email"
+              placeholder="Correo Electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+              disabled={isLoading} 
+            />
+          </div>
+          <div className="relative">
+            <Input
+              className="h-11 md:h-12 md:text-base pr-10"
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              placeholder="Contraseña"
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required
               disabled={isLoading}
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              onClick={() => setShowPassword(!showPassword)}
+              disabled={isLoading} 
+              aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
             >
-              {isLoading ? 'Iniciando...' : 'Iniciar Sesion'}
-            </Button>
-          </form>
-        </CardContent>
-        <CardFooter className="flex flex-col justify-center">
-          <a
-            href="/auth/signup"
-            className=" text-blue-600 hover:text-blue-800 hover:decoration-blue-800"
+              <Image
+                src={showPassword ? "/icons/eye-slash.svg" : "/icons/eye.svg"}
+                alt=""
+                width={20}
+                height={20}
+              />
+            </button>
+          </div>
+          <Button
+            className="w-full h-12 text-lg font-medium"
+            type="submit"
+            disabled={isLoading}
           >
-            No tienes una cuenta?
-          </a>
-          <a
-            href="/auth/login"
-            className="my-1 text-blue-600 hover:text-blue-800 hover:decoration-blue-800"
-          >
-            Olvidaste tu contraseña?
-          </a>
-        </CardFooter>
-      </Card>
-    </div>
+            {isLoading ? 'Iniciando...' : 'Iniciar Sesión'}
+          </Button>
+        </form>
+      </CardContent>
+      <CardFooter className="flex flex-col items-center gap-2">
+        <Link
+          href="/auth/signup"
+          className="text-blue-600 hover:text-blue-800 hover:underline"
+        >
+          ¿No tienes una cuenta?
+        </Link>
+        <Link
+          href="/auth/forgot-password"
+          className="text-blue-600 hover:text-blue-800 hover:underline"
+        >
+          ¿Olvidaste tu contraseña?
+        </Link>
+      </CardFooter>
+    </Card>
   );
 }
