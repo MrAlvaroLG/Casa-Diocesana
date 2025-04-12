@@ -152,7 +152,7 @@ export default function SignUp() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Input
-              className={`h-9 md:h-11 md:text-base ${formErrors.name ? 'border-red-500' : ''}`}
+              className={`h-10 md:h-11 md:text-base ${formErrors.name ? 'border-red-500' : ''}`}
               type="text"
               name="name"
               value={name}
@@ -165,7 +165,7 @@ export default function SignUp() {
           </div>
           <div>
             <Input
-              className={`h-9 md:h-11 md:text-base ${formErrors.number ? 'border-red-500' : ''}`}
+              className={`h-10 md:h-11 md:text-base ${formErrors.number ? 'border-red-500' : ''}`}
               type="tel"
               name="number"
               placeholder="Número de Teléfono"
@@ -178,7 +178,7 @@ export default function SignUp() {
           </div>
           <div>
             <Select onValueChange={setUserType} value={userType} disabled={isLoading} >
-              <SelectTrigger className={`w-full data-[size=default]:h-9 md:data-[size=default]:h-11 text-base ${formErrors.userType ? 'border-red-500' : ''}`}>
+              <SelectTrigger className={`w-full data-[size=default]:h-10 md:data-[size=default]:h-11 text-base ${formErrors.userType ? 'border-red-500' : ''}`}>
                 <SelectValue placeholder="Seleccionar tipo de usuario" />
               </SelectTrigger>
               <SelectContent>
@@ -193,7 +193,7 @@ export default function SignUp() {
           </div>
           <div>
             <Input
-              className={`h-9 md:h-11 md:text-base ${formErrors.email ? 'border-red-500' : ''}`}
+              className={`h-10 md:h-11 md:text-base ${formErrors.email ? 'border-red-500' : ''}`}
               type="email"
               name="email"
               placeholder="Correo Electrónico"
@@ -206,7 +206,7 @@ export default function SignUp() {
           </div>
           <div className="relative">
             <Input
-              className={`h-9 md:h-11 md:text-base pr-10 ${formErrors.password ? 'border-red-500' : ''}`}
+              className={`h-10 md:h-11 md:text-base pr-10 ${formErrors.password ? 'border-red-500' : ''}`}
               type={showPassword ? 'text' : 'password'}
               name="password"
               placeholder="Contraseña"
@@ -233,7 +233,7 @@ export default function SignUp() {
           </div>
           <div className="relative">
             <Input
-              className={`h-9 md:h-11 md:text-base pr-10 ${formErrors.confirmPassword ? 'border-red-500' : ''}`}
+              className={`h-10 md:h-11 md:text-base pr-10 ${formErrors.confirmPassword ? 'border-red-500' : ''}`}
               type={showConfirmPassword ? 'text' : 'password'}
               name="confirmPassword"
               placeholder="Confirmar Contraseña"

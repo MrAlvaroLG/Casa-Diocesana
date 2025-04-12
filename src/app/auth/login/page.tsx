@@ -69,7 +69,7 @@ export default function LogIn() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Input
-              className="h-11 md:h-12 md:text-base"
+              className="h-10 md:h-11 md:text-base"
               type="email"
               name="email"
               placeholder="Correo Electrónico"
@@ -81,7 +81,7 @@ export default function LogIn() {
           </div>
           <div className="relative">
             <Input
-              className="h-11 md:h-12 md:text-base pr-10"
+              className="h-10 md:h-11 md:text-base pr-10"
               type={showPassword ? 'text' : 'password'}
               name="password"
               placeholder="Contraseña"
